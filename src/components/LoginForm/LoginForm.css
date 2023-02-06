@@ -1,0 +1,21 @@
+.ui.centered.card {
+  transform: translateY(70%);
+  -webkit-transform: translateY(70%);
+  -moz-transform: translateY(70%);
+  -ms-transform: translateY(70%);
+  -o-transform: translateY(70%);
+  min-width: 30%;
+}
+
+.ui.segment {
+  padding: 2rem;
+}
+
+.ui.header {
+  font-weight: bold;
+  padding: 1rem;
+}
+
+.login-field {
+    padding: 0.5rem;
+}

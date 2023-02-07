@@ -11,7 +11,7 @@ export const LoginForm = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await provideAuth(username, password);
+      const response = await provideAuth(username, password, setUsername, setPassword);
 
       if (response.status === 200) {
         localStorage.setItem("user", response.data.username);

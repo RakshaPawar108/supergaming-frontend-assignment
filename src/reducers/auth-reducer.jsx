@@ -20,6 +20,9 @@ const authReducer = (state, action) => {
         user: {},
         token: {},
       };
+
+    default:
+      return state;
   }
 };
 

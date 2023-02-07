@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./LoginForm.css";
 import { provideAuth } from "../../utils";
 import { useAuth } from "../../context";
+import { toast } from "react-toastify";
 
 export const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -24,9 +25,16 @@ export const LoginForm = () => {
           },
         });
 
-        alert("Login successful");
+        toast.success("Login successful", {
+          theme: "dark",
+        });
+
+        setUsername("");
+        setPassword("");
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="ui middle aligned centered card login-form">

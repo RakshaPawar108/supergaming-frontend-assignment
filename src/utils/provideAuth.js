@@ -7,8 +7,8 @@ export const provideAuth = async (username, password) => {
       password,
     });
 
-    console.log(response);
+    return response;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };

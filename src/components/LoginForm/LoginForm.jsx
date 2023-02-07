@@ -1,6 +1,33 @@
+import { useState } from "react";
 import "./LoginForm.css";
+import { provideAuth } from "../../utils";
+import { useAuth } from "../../context";
 
 export const LoginForm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { authDispatch } = useAuth();
+
+  const handleLogin = async () => {
+    try {
+      const response = await provideAuth(username, password);
+
+      if (response.status === 200) {
+        localStorage.setItem("user", response.data.username);
+        localStorage.setItem("token", response.data.token);
+
+        authDispatch({
+          type: "LOGIN_SUCCESS",
+          payload: {
+            user: response.data.user,
+            token: response.data.token,
+          },
+        });
+
+        alert("Login successful");
+      }
+    } catch (err) {}
+  };
   return (
     <div className="ui middle aligned centered card login-form">
       <div className="column">
@@ -14,16 +41,30 @@ export const LoginForm = () => {
             <div className="field login-field">
               <div className="ui left icon input">
                 <i className="user icon"></i>
-                <input type="text" name="username" placeholder="Username" />
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </div>
             </div>
             <div className="field login-field">
               <div className="ui left icon input">
                 <i className="lock icon"></i>
-                <input type="password" name="password" placeholder="Password" />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
             </div>
-            <div className="ui fluid blue submit button">Login</div>
+            <div className="ui fluid blue submit button" onClick={handleLogin}>
+              Login
+            </div>
           </div>
         </form>
       </div>

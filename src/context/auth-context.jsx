@@ -10,12 +10,12 @@ const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const auth = localStorage.getItem("auth");
     const user = JSON.parse(localStorage.getItem("user"));
 
     authDispatch({
       type: "FETCH_INITIAL_STATE",
-      payload: { user: user, token: token },
+      payload: { user: user, auth: auth },
     });
   }, []);
   return (

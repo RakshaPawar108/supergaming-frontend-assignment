@@ -7,8 +7,9 @@ import { toast } from "react-toastify";
 export const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [accessToken, setAccessToken] = useState("");
   const [refreshToken, setRefreshToken] = useState("");
+  const [accessToken, setAccessToken] = useState("");
+  const [expiresInSeconds, setExpiresInSeconds] = useState(0);
   const { authDispatch } = useAuth();
 
   const handleLogin = async () => {
@@ -21,17 +22,21 @@ export const LoginForm = () => {
       );
 
       if (response.status === 200) {
-        console.log(response.data.user);
-        console.log(response.data.auth);
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        localStorage.setItem("auth", JSON.stringify(response.data.auth));
-        // setRefreshToken();
+        localStorage.setItem("accessToken", response.data.auth.accessToken);
+        localStorage.setItem(
+          "expiresInSeconds",
+          response.data.auth.expiresInSeconds
+        );
+        setAccessToken(response.data.auth.accessToken);
+        setExpiresInSeconds(response.data.auth.expiresInSeconds);
+        setRefreshToken(response.data.auth.refreshToken);
 
         authDispatch({
           type: "LOGIN_SUCCESS",
           payload: {
             user: response.data.user,
-            token: response.data.token,
+            auth: response.data.auth,
           },
         });
 
@@ -47,16 +52,34 @@ export const LoginForm = () => {
     }
   };
 
-  // const handleRefreshAccessToken = async () => {
-  //   try {
-  //     const response = await refreshAccessToken(refreshToken);
-  //     if (response.status === 200) {
-  //       setRefreshToken(response.data.refreshToken);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const handleRefreshAccessToken = async () => {
+    try {
+      const response = await refreshAccessToken(refreshToken);
+      if (response.status === 200) {
+        setRefreshToken(response.data.refreshToken);
+        let accToken = localStorage.getItem("accessToken");
+        accToken = response.data.accessToken;
+        localStorage.setItem("accessToken", accToken);
+        let expInSecs = localStorage.getItem("expiresInSeconds");
+        expInSecs = response.data.expiresInSeconds;
+        localStorage.setItem("expiresInSeconds", expInSecs);
+        setAccessToken(response.data.accessToken);
+        setExpiresInSeconds(response.data.expiresInSeconds);
+        setRefreshToken(response.data.refreshToken);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      handleRefreshAccessToken();
+    }, (expiresInSeconds - 30) * 1000); // Refresh access token 60 seconds before it expires
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [refreshToken, expiresInSeconds]);
 
   return (
     <div className="ui middle aligned centered card login-form">
@@ -95,14 +118,6 @@ export const LoginForm = () => {
             <div className="ui fluid blue submit button" onClick={handleLogin}>
               Login
             </div>
-            {/* {refreshToken && (
-              <div
-                className="ui fluid red submit button"
-                onClick={handleRefreshAccessToken}
-              >
-                Refresh Access Token
-              </div>
-            )} */}
           </div>
         </form>
       </div>

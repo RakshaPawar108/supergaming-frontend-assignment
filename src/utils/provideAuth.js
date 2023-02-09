@@ -16,7 +16,7 @@ export const provideAuth = async (
     return response;
   } catch (err) {
     if (err.response.status === 400) {
-      toast.error(`Bad Request: ${err.data.reason}. ${err.data.hint}`, {
+      toast.error(`Bad Request: ${err.response.data.reason}. ${err.response.data.hint}`, {
         theme: "dark",
       });
       setUsername("");

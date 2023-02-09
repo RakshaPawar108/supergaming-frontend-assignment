@@ -6,7 +6,7 @@ export const refreshAccessToken = async (refreshToken) => {
     const response = await axios.post("https://test.indusgame.com/auths", {
       refreshToken,
     });
-    return response.data;
+    return response;
   } catch (err) {
     if (err.response) {
       const { status, data } = err.response;

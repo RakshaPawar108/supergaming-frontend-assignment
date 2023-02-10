@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./LoginForm.css";
 import { provideAuth, refreshAccessToken } from "../../utils";
 import { useAuth } from "../../context";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
-export const LoginForm = () => {
+export const LoginForm = ({ setIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [refreshToken, setRefreshToken] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [expiresInSeconds, setExpiresInSeconds] = useState(0);
   const { authDispatch } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -31,6 +33,7 @@ export const LoginForm = () => {
         setAccessToken(response.data.auth.accessToken);
         setExpiresInSeconds(response.data.auth.expiresInSeconds);
         setRefreshToken(response.data.auth.refreshToken);
+        console.log(accessToken);
 
         authDispatch({
           type: "LOGIN_SUCCESS",
@@ -43,7 +46,8 @@ export const LoginForm = () => {
         toast.success("Login successful", {
           theme: "dark",
         });
-
+        setIsLoggedIn(true);
+        navigate("/");
         setUsername("");
         setPassword("");
       }
@@ -73,13 +77,16 @@ export const LoginForm = () => {
   };
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      handleRefreshAccessToken();
-    }, (expiresInSeconds - 30) * 1000); // Refresh access token 60 seconds before it expires
+    const intervalId = setInterval(() => {
+      if (expiresInSeconds && refreshToken) {
+        handleRefreshAccessToken();
+        console.log(expiresInSeconds);
+      }
+    }, (expiresInSeconds - 60) * 1000); // Refresh access token 60 seconds before it expires
     return () => {
-      clearTimeout(timeoutId);
+      clearInterval(intervalId);
     };
-  }, [refreshToken, expiresInSeconds]);
+  }, []);
 
   return (
     <div className="ui middle aligned centered card login-form">

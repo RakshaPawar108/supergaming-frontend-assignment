@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { LoginForm } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Home } from "./pages";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         pauseOnHover
       />
       <Routes>
-        <Route path="/" element={<LoginForm />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginForm />} />
       </Routes>
     </div>
   );

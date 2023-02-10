@@ -13,18 +13,18 @@ export const Header = () => {
       <div className="right menu">
         {!user && (
           <NavLink to="/login" className="ui item">
-            <i class="sign in alternate icon"></i>
+            <i className="sign in alternate icon"></i>
             Login
           </NavLink>
         )}
         {user && (
           <>
             <div className="ui item">
-              <i class="user icon"></i>
+              <i className="user icon"></i>
               Hello {user.firstname} {user.lastname}
             </div>
             <NavLink to="/logout" className="ui item">
-              <i class="sign out alternate icon"></i>
+              <i className="sign out alternate icon"></i>
               Logout
             </NavLink>
           </>

@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Header, LoginForm } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Home } from "./pages";
+import { Home, LogoutPage } from "./pages";
 import { useState } from "react";
 
 function App() {
@@ -30,6 +30,8 @@ function App() {
           path="/login"
           element={<LoginForm setIsLoggedIn={setIsLoggedIn} />}
         />
+
+        <Route path="/logout" element={<LogoutPage />} />
       </Routes>
     </div>
   );

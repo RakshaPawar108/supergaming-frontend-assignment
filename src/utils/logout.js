@@ -1,8 +1,17 @@
-import { jwtInterceptor } from "./jwtInterceptor";
+import axios from "axios";
 
 export const logout = async () => {
+  let accToken = localStorage.getItem("accessToken");
   try {
-    const response = await jwtInterceptor.post("https://test.indusgame.com/logouts");
+    const response = await axios.post(
+      "https://test.indusgame.com/logouts",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accToken}`,
+        },
+      }
+    );
 
     return response;
   } catch (err) {

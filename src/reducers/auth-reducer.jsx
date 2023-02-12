@@ -14,6 +14,17 @@ const authReducer = (state, action) => {
         auth: action.payload.auth,
       };
 
+    case "TOKEN_REFRESH":
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          accessToken: action.payload.auth.accessToken,
+          refreshToken: action.payload.auth.refreshToken,
+          expiresInSeconds: action.payload.auth.expiresInSeconds,
+        },
+      };
+
     case "LOGOUT":
       return {
         ...state,

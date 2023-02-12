@@ -10,7 +10,7 @@ import { refreshAccessToken } from "./utils";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("isLoggedIn") || false
-  );;
+  );
   const { authState, authDispatch } = useAuth();
 
   const handleRefreshAccessToken = async () => {
@@ -59,7 +59,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem("isLoggedIn", isLoggedIn);
   }, [isLoggedIn]);
-
 
   return (
     <div className="App">

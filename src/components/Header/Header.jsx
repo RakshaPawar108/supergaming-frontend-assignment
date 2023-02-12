@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context";
 import { logout } from "../../utils";
 import { toast } from "react-toastify";
@@ -9,11 +9,12 @@ export const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     authState: { user },
     authDispatch,
   } = useAuth();
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
     try {
       const response = await logout();
-      if (response.status === 202) {
+      if (response?.status === 202) {
         localStorage.removeItem("user");
         localStorage.removeItem("auth");
 
@@ -27,6 +28,8 @@ export const Header = ({ isLoggedIn, setIsLoggedIn }) => {
         });
 
         setIsLoggedIn(false);
+        navigate('/logout')
+
       }
     } catch (err) {
       toast.error(err.message, {
@@ -46,16 +49,16 @@ export const Header = ({ isLoggedIn, setIsLoggedIn }) => {
             Login
           </NavLink>
         )}
-        {isLoggedIn && (
+        {isLoggedIn && user && (
           <>
             <div className="ui item">
               <i className="user icon"></i>
               Hello {user.firstname} {user.lastname}
             </div>
-            <NavLink to="/logout" className="ui item" onClick={handleLogout}>
+            <a className="ui item" onClick={handleLogout}>
               <i className="sign out alternate icon"></i>
               Logout
-            </NavLink>
+            </a>
           </>
         )}
       </div>

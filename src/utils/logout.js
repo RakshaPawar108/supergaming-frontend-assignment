@@ -1,6 +1,8 @@
 import axios from "axios";
+import { useAuth } from "../context";
 
 export const logout = async () => {
+
   let auth = JSON.parse(localStorage.getItem("auth"));
   let accToken = auth.accessToken;
   try {

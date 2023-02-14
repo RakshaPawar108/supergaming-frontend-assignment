@@ -32,13 +32,13 @@ export const UnitCard = ({ unit }) => {
       </div>
       <div
         className="extra content unit-extra-content"
-        style={{ fontSize: "0.8rem" }}
+        style={{ fontSize: "0.9rem" }}
       >
         <Link to="/" className="right floated">
           See More
         </Link>
         <span>
-          <i className="user icon"></i>
+          <i class="gamepad icon"></i>
           <strong>Id: {unit.id}</strong>
         </span>
       </div>

@@ -26,9 +26,16 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="ui link cards">
-      <UnitCard />
-      <UnitCard />
+    <div className="ui link centered cards">
+      {units.length > 0 ? (
+        <>
+          {units.map((unit) => (
+            <UnitCard key={unit.id} unit={unit} />
+          ))}
+        </>
+      ) : (
+        <div>No units to display at the moment.</div>
+      )}
     </div>
   );
 };

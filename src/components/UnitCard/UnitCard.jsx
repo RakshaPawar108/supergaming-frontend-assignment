@@ -1,23 +1,34 @@
-export const UnitCard = () => {
+import { Link } from "react-router-dom";
+
+export const UnitCard = ({ unit }) => {
   return (
     <div className="card">
       <div className="image">
-        <img src="/images/avatar2/large/matthew.png" />
+        <img src={unit.imageUrl} alt={unit.name} />
       </div>
       <div className="content">
-        <div className="header">Matt Giampietro</div>
+        <div className="header">{unit.name}</div>
         <div className="meta">
-          <a>Friends</a>
+          <a>Code: {unit.code}</a>
+        </div>
+        <div className="description">{unit.description}</div>
+        <div className="labels">
+          <a class="ui orange tiny label">{unit.type}</a>
+          <a class="ui violet tiny label">{unit.role}</a>
+          <a class="ui pink tiny label">{unit.faction}</a>
+          <a class="ui yellow tiny label">{unit.attackType}</a>
         </div>
         <div className="description">
-          Matthew is an interior designer living in New York.
+          <strong>Ability:</strong> {unit.ability.name}
         </div>
       </div>
       <div className="extra content">
-        <span className="right floated">Joined in 2013</span>
+        <Link to="/" className="right floated">
+          See More
+        </Link>
         <span>
           <i className="user icon"></i>
-          75 Friends
+          <strong>Id: {unit.id}</strong>
         </span>
       </div>
     </div>

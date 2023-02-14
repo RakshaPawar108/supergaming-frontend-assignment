@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Header, LoginForm } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Home, LogoutPage } from "./pages";
+import { Home, LogoutPage, UnitDetails } from "./pages";
 import { useEffect, useState } from "react";
 import { useAuth } from "./context";
 import { refreshAccessToken } from "./utils";
@@ -85,6 +85,11 @@ function App() {
         />
 
         <Route path="/logout" element={<LogoutPage />} />
+
+        <Route
+          path="/unit/:unitId"
+          element={isLoggedIn ? <UnitDetails /> : <Navigate to="/login" />}
+        />
       </Routes>
     </div>
   );

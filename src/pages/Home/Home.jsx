@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchUnits } from "../../services";
 import { toast } from "react-toastify";
+import { UnitCard } from "../../components";
 
 export const Home = () => {
   const [units, setUnits] = useState([]);
@@ -24,5 +25,10 @@ export const Home = () => {
     getUnits();
   }, []);
 
-  return <div>This is the Home page</div>;
+  return (
+    <div className="ui link cards">
+      <UnitCard />
+      <UnitCard />
+    </div>
+  );
 };

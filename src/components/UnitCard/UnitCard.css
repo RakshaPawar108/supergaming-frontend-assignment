@@ -1,0 +1,24 @@
+.unit-image {
+  object-fit: cover;
+}
+
+.unit-name {
+  margin: 1rem 0;
+}
+
+.unit-description {
+  font-size: 1rem;
+  margin: 1rem 0;
+  line-height: 1.5rem;
+}
+
+.labels {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.ability-description {
+    font-size: 1rem;
+}

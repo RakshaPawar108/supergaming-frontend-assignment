@@ -34,7 +34,7 @@ export const UnitCard = ({ unit }) => {
         className="extra content unit-extra-content"
         style={{ fontSize: "0.9rem" }}
       >
-        <Link to="/" className="right floated">
+        <Link to={`/unit/${unit.id}`} className="right floated">
           See More
         </Link>
         <span>

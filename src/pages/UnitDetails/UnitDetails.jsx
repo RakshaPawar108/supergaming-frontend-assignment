@@ -215,13 +215,13 @@ export const UnitDetails = () => {
                   </div>
                   <div className="description" style={{ marginTop: "1rem" }}>
                     <div className="label">
-                      <i class="dollar sign icon"></i>
+                      <i className="dollar sign icon"></i>
                       <strong>Spawn Cost: </strong> {unit.spawnCost}
                     </div>
                   </div>
                   <div className="description" style={{ marginTop: "1rem" }}>
                     <div className="label">
-                      <i class="stopwatch icon"></i>
+                      <i className="stopwatch icon"></i>
                       <strong>Spawn Cooldown: </strong> {unit.spawnCooldownInSeconds}{" "}
                       seconds
                     </div>

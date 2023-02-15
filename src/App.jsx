@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Header, LoginForm } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "semantic-ui-css/semantic.min.css";
 import { Home, LogoutPage, UnitDetails } from "./pages";
 import { useEffect, useState } from "react";
 import { useAuth } from "./context";

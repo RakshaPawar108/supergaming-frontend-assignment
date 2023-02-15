@@ -38,7 +38,7 @@ export const UnitCard = ({ unit }) => {
           See More
         </Link>
         <span>
-          <i class="gamepad icon"></i>
+          <i className="gamepad icon"></i>
           <strong>Id: {unit.id}</strong>
         </span>
       </div>

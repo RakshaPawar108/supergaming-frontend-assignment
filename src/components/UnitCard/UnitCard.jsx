@@ -1,7 +1,19 @@
 import { Link } from "react-router-dom";
 import "./UnitCard.css";
+import { ModalComponent } from "../ModalComponent/ModalComponent";
+import { useState } from "react";
 
 export const UnitCard = ({ unit }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="card">
       <div className="image">
@@ -29,7 +41,10 @@ export const UnitCard = ({ unit }) => {
           <a className="ui pink tiny label">{unit.faction}</a>
           <a className="ui red tiny label">{unit.attackType}</a>
         </div>
+
+        <button onClick={handleOpenModal}>Edit Unit</button>
       </div>
+
       <div
         className="extra content unit-extra-content"
         style={{ fontSize: "0.9rem" }}
@@ -42,6 +57,11 @@ export const UnitCard = ({ unit }) => {
           <strong>Id: {unit.id}</strong>
         </span>
       </div>
+      <ModalComponent
+        showModal={showModal}
+        handleCloseModal={handleCloseModal}
+        unit={unit}
+      />
     </div>
   );
 };

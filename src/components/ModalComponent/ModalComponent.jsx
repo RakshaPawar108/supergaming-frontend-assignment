@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Modal, Button } from "semantic-ui-react";
+import { updateUnit } from "../../utils";
+import { toast } from "react-toastify";
 
 export const ModalComponent = ({ showModal, handleCloseModal, unit }) => {
   const [formData, setFormData] = useState({
@@ -18,9 +20,20 @@ export const ModalComponent = ({ showModal, handleCloseModal, unit }) => {
     });
   };
 
-  const handleSubmit = () => {
-    
-  }
+  const handleSubmit = async () => {
+    const { id } = unit;
+    const requestBody = { id, ...formData };
+    try {
+      const response = await updateUnit(id, requestBody);
+      if (response.status === 200 || response.status === 204) {
+        handleCloseModal();
+      }
+    } catch (error) {
+      toast.error(`Error in updating unit: ${error}`, {
+        theme: "dark",
+      });
+    }
+  };
   return (
     <Modal onClose={handleCloseModal} open={showModal}>
       <Modal.Header>Edit Unit</Modal.Header>

@@ -40,22 +40,30 @@ export const UnitCard = ({ unit }) => {
           <a className="ui violet tiny label">{unit.role}</a>
           <a className="ui pink tiny label">{unit.faction}</a>
           <a className="ui red tiny label">{unit.attackType}</a>
+          <a className="ui teal tiny label">{unit.quality}</a>
         </div>
 
-        <button onClick={handleOpenModal}>Edit Unit</button>
+        <button
+          className="ui labeled icon tiny purple button"
+          onClick={handleOpenModal}
+        >
+          <i className="edit icon"></i>Edit Unit
+        </button>
       </div>
 
       <div
         className="extra content unit-extra-content"
         style={{ fontSize: "0.9rem" }}
       >
-        <Link to={`/unit/${unit.id}`} className="right floated">
-          See More
-        </Link>
         <span>
           <i className="gamepad icon"></i>
           <strong>Id: {unit.id}</strong>
         </span>
+        <Link
+          to={`/unit/${unit.id}`}
+        >
+          <div className="ui mini right floated blue button">See More</div>
+        </Link>
       </div>
       <ModalComponent
         showModal={showModal}

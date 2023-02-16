@@ -42,6 +42,20 @@ export const Header = ({
   };
   return (
     <div className="ui secondary pointing menu">
+      <div
+        className="header"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          padding: "1rem",
+          fontSize: "1.2rem",
+          fontWeight: "bold",
+          fontFamily: "Poppins",
+        }}
+      >
+        INDUS GAME DASHBOARD
+      </div>
+
       <NavLink to="/" className="item">
         Home
       </NavLink>

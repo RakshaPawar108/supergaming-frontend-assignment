@@ -56,7 +56,6 @@ function App() {
         handleRefreshAccessToken,
         (authState.auth.expiresInSeconds - 60) * 1000
       );
-      // handleRefreshAccessToken();
     }
 
     return () => {
@@ -73,7 +72,6 @@ function App() {
       <Header
         setIsLoggedIn={setIsLoggedIn}
         isLoggedIn={isLoggedIn}
-        handleRefreshAccessToken={handleRefreshAccessToken}
       />
       <ToastContainer
         position="top-right"

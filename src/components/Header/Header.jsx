@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 export const Header = ({
   isLoggedIn,
   setIsLoggedIn,
-  handleRefreshAccessToken,
 }) => {
   const {
     authState: { user },

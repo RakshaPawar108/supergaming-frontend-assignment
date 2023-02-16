@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { fetchUnits } from "../../services";
 import { toast } from "react-toastify";
-import { CodeFilter, UnitCard } from "../../components";
+import { CodeSort, UnitCard } from "../../components";
 
 export const Home = () => {
   const [units, setUnits] = useState([]);
+  const [sortOrder, setSortOrder] = useState("DEFAULT");
 
   const authData = JSON.parse(localStorage.getItem("auth"));
 
@@ -21,20 +22,40 @@ export const Home = () => {
     }
   };
 
+  const handleSortOrderChange = (e) => {
+    setSortOrder(e.target.value);
+  };
+
   useEffect(() => {
     getUnits();
   }, []);
 
+  const sortUnits = (units, sortOrder) => {
+    if (sortOrder === "ASC") {
+      return units.sort((a, b) => {
+        return a.code - b.code;
+      });
+    } else if (sortOrder === "DESC") {
+      return units.sort((a, b) => {
+        return b.code - a.code;
+      });
+    } else {
+      return units;
+    }
+  };
+
+  const sortedUnits = sortUnits(units, sortOrder);
+
   return (
     <>
       <div className="ui container">
-        <CodeFilter />
+        <CodeSort handleSortOrderChange={handleSortOrderChange} />
       </div>
 
       <div className="ui link centered cards">
-        {units.length > 0 ? (
+        {sortedUnits.length > 0 ? (
           <>
-            {units.map((unit) => (
+            {sortedUnits.map((unit) => (
               <UnitCard key={unit.id} unit={unit} />
             ))}
           </>

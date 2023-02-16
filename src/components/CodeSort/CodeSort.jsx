@@ -1,7 +1,7 @@
 export const CodeSort = ({ handleSortOrderChange }) => {
   return (
-    <div class="ui form">
-      <div class="field">
+    <div className="ui form">
+      <div className="field">
         <label>Sort By Code:</label>
         <select
           className="ui search dropdown"

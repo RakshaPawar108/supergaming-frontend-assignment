@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchUnits } from "../../services";
 import { toast } from "react-toastify";
-import { UnitCard } from "../../components";
+import { CodeFilter, UnitCard } from "../../components";
 
 export const Home = () => {
   const [units, setUnits] = useState([]);
@@ -26,16 +26,22 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="ui link centered cards">
-      {units.length > 0 ? (
-        <>
-          {units.map((unit) => (
-            <UnitCard key={unit.id} unit={unit} />
-          ))}
-        </>
-      ) : (
-        <div>No units to display at the moment.</div>
-      )}
-    </div>
+    <>
+      <div className="ui container">
+        <CodeFilter />
+      </div>
+
+      <div className="ui link centered cards">
+        {units.length > 0 ? (
+          <>
+            {units.map((unit) => (
+              <UnitCard key={unit.id} unit={unit} />
+            ))}
+          </>
+        ) : (
+          <div>No units to display at the moment.</div>
+        )}
+      </div>
+    </>
   );
 };

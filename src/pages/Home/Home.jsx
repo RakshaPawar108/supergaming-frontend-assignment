@@ -54,7 +54,16 @@ export const Home = () => {
         <Loader />
       ) : (
         <>
-          <div className="ui container" style={{padding: '1.5rem', width: '50%'}}>
+          <div
+            className="ui center aligned header"
+            style={{ fontSize: "1.5rem", fontFamily: "Poppins" }}
+          >
+            Available Units
+          </div>
+          <div
+            className="ui container"
+            style={{ padding: "1.5rem", width: "50%" }}
+          >
             <CodeSort handleSortOrderChange={handleSortOrderChange} />
           </div>
           <div className="ui link centered cards">
@@ -65,7 +74,9 @@ export const Home = () => {
                 ))}
               </>
             ) : (
-              <div className="ui center-aligned container">No units to display at the moment. Please Login!</div>
+              <div className="ui center-aligned container">
+                No units to display at the moment. Please Login!
+              </div>
             )}
           </div>{" "}
         </>

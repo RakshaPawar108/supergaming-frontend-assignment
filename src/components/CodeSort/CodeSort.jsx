@@ -6,8 +6,9 @@ export const CodeSort = ({ handleSortOrderChange }) => {
         <select
           className="ui search dropdown"
           onChange={handleSortOrderChange}
+          style={{ fontFamily: "Poppins" }}
         >
-          <option value='DEFAULT'>DEFAULT</option>
+          <option value="DEFAULT">DEFAULT</option>
           <option value="ASC">Ascending</option>
           <option value="DESC">Descending</option>
         </select>

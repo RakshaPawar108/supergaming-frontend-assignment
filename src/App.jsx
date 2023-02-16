@@ -1,13 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Header, LoginForm } from "./components";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "semantic-ui-css/semantic.min.css";
-import "react-responsive-modal/styles.css";
 import { Home, LogoutPage, UnitDetails } from "./pages";
 import { useEffect, useState } from "react";
 import { useAuth } from "./context";
 import { refreshAccessToken } from "./utils";
+import "react-toastify/dist/ReactToastify.css";
+import "semantic-ui-css/semantic.min.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -43,16 +42,15 @@ function App() {
           });
         }
       }
-      
 
-      return () => clearTimeout(timeoutId)
+      return () => clearTimeout(timeoutId);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    let timeoutId = null
+    let timeoutId = null;
     if (authState.auth?.accessToken) {
       timeoutId = setTimeout(
         handleRefreshAccessToken,
@@ -62,8 +60,8 @@ function App() {
     }
 
     return () => {
-      clearTimeout(timeoutId)
-    }
+      clearTimeout(timeoutId);
+    };
   }, [authState.auth]);
 
   useEffect(() => {
@@ -72,7 +70,11 @@ function App() {
 
   return (
     <div className="App">
-      <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} handleRefreshAccessToken={handleRefreshAccessToken} />
+      <Header
+        setIsLoggedIn={setIsLoggedIn}
+        isLoggedIn={isLoggedIn}
+        handleRefreshAccessToken={handleRefreshAccessToken}
+      />
       <ToastContainer
         position="top-right"
         autoClose={3000}

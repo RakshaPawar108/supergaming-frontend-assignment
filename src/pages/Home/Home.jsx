@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { fetchUnits } from "../../services";
 import { toast } from "react-toastify";
-import { CodeSort, UnitCard } from "../../components";
+import { CodeSort, Loader, UnitCard } from "../../components";
 
 export const Home = () => {
   const [units, setUnits] = useState([]);
   const [sortOrder, setSortOrder] = useState("DEFAULT");
+  const [loading, setLoading] = useState(true);
 
   const authData = JSON.parse(localStorage.getItem("auth"));
 
@@ -14,6 +15,7 @@ export const Home = () => {
       const response = await fetchUnits(authData.accessToken);
       if (response.status === 200) {
         setUnits(response.data);
+        setLoading(false);
       }
     } catch (err) {
       toast.error("Error in fetching units: " + err.message, {
@@ -48,21 +50,26 @@ export const Home = () => {
 
   return (
     <>
-      <div className="ui container">
-        <CodeSort handleSortOrderChange={handleSortOrderChange} />
-      </div>
-
-      <div className="ui link centered cards">
-        {sortedUnits.length > 0 ? (
-          <>
-            {sortedUnits.map((unit) => (
-              <UnitCard key={unit.id} unit={unit} />
-            ))}
-          </>
-        ) : (
-          <div>No units to display at the moment.</div>
-        )}
-      </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="ui container" style={{padding: '1.5rem', width: '50%'}}>
+            <CodeSort handleSortOrderChange={handleSortOrderChange} />
+          </div>
+          <div className="ui link centered cards">
+            {sortedUnits.length > 0 ? (
+              <>
+                {sortedUnits.map((unit) => (
+                  <UnitCard key={unit.id} unit={unit} />
+                ))}
+              </>
+            ) : (
+              <div className="ui center-aligned container">No units to display at the moment. Please Login!</div>
+            )}
+          </div>{" "}
+        </>
+      )}
     </>
   );
 };

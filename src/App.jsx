@@ -3,6 +3,7 @@ import { Header, LoginForm } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "semantic-ui-css/semantic.min.css";
+import "react-responsive-modal/styles.css";
 import { Home, LogoutPage, UnitDetails } from "./pages";
 import { useEffect, useState } from "react";
 import { useAuth } from "./context";
@@ -42,20 +43,28 @@ function App() {
           });
         }
       }
-      setTimeout(
-        handleRefreshAccessToken,
-        (authState.auth.expiresInSeconds - 60) * 1000
-      );
+      
+
+      return () => clearTimeout(timeoutId)
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
+    let timeoutId = null
     if (authState.auth?.accessToken) {
-      handleRefreshAccessToken();
+      timeoutId = setTimeout(
+        handleRefreshAccessToken,
+        (authState.auth.expiresInSeconds - 60) * 1000
+      );
+      // handleRefreshAccessToken();
     }
-  }, []);
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [authState.auth]);
 
   useEffect(() => {
     localStorage.setItem("isLoggedIn", isLoggedIn);
@@ -63,7 +72,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+      <Header setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} handleRefreshAccessToken={handleRefreshAccessToken} />
       <ToastContainer
         position="top-right"
         autoClose={3000}

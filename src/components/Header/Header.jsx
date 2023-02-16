@@ -3,20 +3,22 @@ import { useAuth } from "../../context";
 import { logout } from "../../utils";
 import { toast } from "react-toastify";
 
-
-export const Header = ({ isLoggedIn, setIsLoggedIn }) => {
+export const Header = ({
+  isLoggedIn,
+  setIsLoggedIn,
+  handleRefreshAccessToken,
+}) => {
   const {
     authState: { user },
     authDispatch,
   } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       const response = await logout();
       if (response?.status === 202) {
-        localStorage.removeItem("user");
-        localStorage.removeItem("auth");
+        setIsLoggedIn(false);
 
         authDispatch({
           type: "LOGOUT",
@@ -27,9 +29,10 @@ export const Header = ({ isLoggedIn, setIsLoggedIn }) => {
           theme: "dark",
         });
 
-        setIsLoggedIn(false);
-        navigate('/logout')
-
+        localStorage.removeItem("user");
+        localStorage.removeItem("auth");
+        localStorage.removeItem("isLoggedIn");
+        navigate("/logout");
       }
     } catch (err) {
       toast.error(err.message, {
